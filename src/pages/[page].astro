@@ -53,7 +53,7 @@ const { posts, totalPages } = await fetchPosts(currentPage, perPage);
             <div class="card-content">
               <div class="content post-content">
                 <p set:html={post.content}></p>
-                <a href=`/kavithai/${post.id}/` class="button read-button is-small mt-5" data-astro-prefetch="tap">மேலும் படிக்க</a>
+                <a href={`/kavithai/${post.id}/`} class="button read-button is-small mt-5" data-astro-prefetch="tap">மேலும் படிக்க</a>
               </div>
             </div>
           </div>
