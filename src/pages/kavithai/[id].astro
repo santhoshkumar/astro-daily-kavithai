@@ -70,6 +70,7 @@ if (!post) {
       background: linear-gradient(135deg, #f5f7fa 0%, #dfe6f0 100%);
       min-height: 100vh;
       color: var(--dark);
+      font-weight: 600;
       line-height: 1.6;
       display: flex;
       flex-direction: column;
@@ -94,7 +95,7 @@ if (!post) {
       position: relative;
       background: white;
       border-radius: 12px;
-      padding: 2.5rem;
+      padding: 4.5rem;
       margin: 1.5rem 0;
       box-shadow: var(--shadow-md);
       border-left: 5px solid var(--primary);
@@ -110,10 +111,6 @@ if (!post) {
       font-size: 1.25rem;
       line-height: 1.8;
       color: var(--dark);
-    }
-    
-    .post-content p {
-      margin-bottom: 1.5rem;
     }
     
     .btn {
@@ -140,6 +137,25 @@ if (!post) {
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(243, 156, 18, 0.35);
+    }
+
+    .btn-back {
+      background: linear-gradient(45deg, var(--secondary), #5dade2);
+      font-family: 'Anek Tamil', sans-serif;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 3px 10px rgba(52, 152, 219, 0.25);
+      margin-top: 1.5rem;
+      width: 100%;
+      max-width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(52, 152, 219, 0.35);
+      background: linear-gradient(45deg, #2980b9, var(--secondary));
     }
     
     .pagination-container {
@@ -230,7 +246,13 @@ if (!post) {
       opacity: 0.7;
     }
 
-    /* Animation for the card */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -239,15 +261,14 @@ if (!post) {
     .blog-card {
       animation: fadeIn 0.5s ease-out forwards;
     }
-    
-    /* Responsive adjustments */
+
     @media (max-width: 768px) {
       .section {
         padding: 1.5rem 0.75rem;
       }
       
       .blog-card {
-        padding: 2rem 1.5rem;
+        padding: 4.25rem 1.25rem;
       }
       
       .post-content {
@@ -264,6 +285,10 @@ if (!post) {
         height: 36px;
         font-size: 1rem;
       }
+
+      .btn-back {
+        max-width: 220px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -272,7 +297,7 @@ if (!post) {
       }
       
       .blog-card {
-        padding: 1.75rem 1.25rem;
+        padding: 4.25rem 1.25rem;
       }
       
       .post-content {
@@ -292,6 +317,11 @@ if (!post) {
         top: 0.75rem;
         right: 0.75rem;
       }
+
+      .btn-back {
+        max-width: 200px;
+        padding: 0.6rem 1rem;
+      }
     }
   </style>
 </head>
@@ -300,14 +330,21 @@ if (!post) {
   <section class="section">
     <div class="container">
       {post ? (
-        <div class="blog-card" data-id={post.id}>
-          <button id="copy-button" class="copy-btn" aria-label="Copy quote" title="Copy Kavithai">
-            <i class="fas fa-copy"></i>
-          </button>
-          <div class="post-content" id="quote-content">
-            <p set:html={post.content}></p>
+        <>
+          <div class="blog-card" data-id={post.id}>
+            <button id="copy-button" class="copy-btn" aria-label="Copy quote" title="Copy Kavithai">
+              <i class="fas fa-copy"></i>
+            </button>
+            <div class="post-content" id="quote-content">
+              <p set:html={post.content}></p>
+            </div>
           </div>
-        </div>
+          <div class="button-container">
+            <button onclick="window.history.back()" class="btn btn-back">
+              <i class="fas fa-arrow-left"></i> Previous Page
+            </button>
+          </div>
+        </>
       ) : (
         <div class="notification">
           கவிதை காணப்படவில்லை.
