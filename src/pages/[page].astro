@@ -1,6 +1,5 @@
 ---
 import { fetchPosts } from '../lib/wpApi.js';
-import '../styles/global.css';
 
 export async function getStaticPaths() {
   const perPage = 10;
@@ -37,39 +36,229 @@ const { posts, totalPages } = await fetchPosts(currentPage, perPage);
   <link href="/192.png" rel="icon" sizes="192x192" type="image/png">
   <link href="/180.png" rel="apple-touch-icon">
   <title>Daily கவிதைகள் - பக்கம் {currentPage}</title>
-  <meta name="description" content=`Daily தமிழ் கவிதைகள் - பக்கம் ${currentPage} - Tamil Quotes.`>
+  <meta name="description" content={`Daily தமிழ் கவிதைகள் - பக்கம் ${currentPage} - Tamil Quotes.`}>
   <link rel="canonical" href={`https://kavithai.searchquotes.quest/${currentPage}/`} />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e74c3c;
+      --primary-light: #ff6b6b;
+      --secondary: #3498db;
+      --accent: #f39c12;
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+      --success: #2ecc71;
+    }
+    
+    body {
+      font-family: 'Anek Tamil', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #dfe6f0 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: var(--dark);
+    }
+    
+    .section {
+      padding: 1.5rem 1rem;
+      padding-bottom: 5rem;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .blog-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border-left: 5px solid var(--primary);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .post-content {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--dark);
+    }
+    
+    .post-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .read-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(45deg, var(--accent), #ffb347);
+      color: white;
+      box-shadow: 0 3px 10px rgba(243, 156, 18, 0.25);
+      text-decoration: none;
+      font-size: 0.95rem;
+      gap: 6px;
+    }
+    
+    .read-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(243, 156, 18, 0.35);
+    }
+    
+    .read-button .material-icons {
+      font-size: 1.1rem;
+      vertical-align: middle;
+      margin-top: -1px;
+    }
+    
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .pagination-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      background: white;
+      color: var(--dark);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      font-size: 0.95rem;
+      min-width: 100px;
+      gap: 6px;
+    }
+    
+    .pagination-button:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+    
+    .pagination-button .material-icons {
+      font-size: 1.1rem;
+      vertical-align: middle;
+    }
+    
+    .notification {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--dark);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      margin: 2rem 0;
+    }
+    
+    .page-indicator {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--dark);
+      opacity: 0.8;
+    }
+    
+    @media (max-width: 600px) {
+      .section {
+        padding: 1.2rem 0.8rem;
+      }
+      
+      .blog-card {
+        padding: 1.2rem;
+        margin-bottom: 1.2rem;
+      }
+      
+      .post-content {
+        font-size: 1rem;
+      }
+      
+      .read-button, .pagination-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        min-width: 90px;
+      }
+      
+      .pagination-container {
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+      
+      .notification {
+        padding: 1.2rem;
+        font-size: 1rem;
+      }
+      
+      .page-indicator {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <section class="section">
     <div class="container">
       {posts.length > 0 ? (
-        posts.map((post) => (
-          <div class="card blog-card" data-id={post.id}>
-            <div class="card-content">
-              <div class="content post-content">
+        <>
+          {posts.map((post) => (
+            <div class="blog-card" data-id={post.id}>
+              <div class="post-content">
                 <p set:html={post.content}></p>
-                <a href={`/kavithai/${post.id}/`} class="button read-button is-small mt-5" data-astro-prefetch="tap">மேலும் படிக்க</a>
+                <a href={`/kavithai/${post.id}/`} class="read-button" data-astro-prefetch="viewport">
+                  மேலும் படிக்க
+                  <span class="material-icons">arrow_forward</span>
+                </a>
               </div>
             </div>
+          ))}
+          
+          <div class="page-indicator">
+            பக்கம் {currentPage} / {totalPages}
           </div>
-        ))
+        </>
       ) : (
-        <div class="notification is-danger has-text-centered">
+        <div class="notification">
           எந்த கவிதைகளும் இல்லை.
         </div>
       )}
 
       <nav class="pagination-container">
         {currentPage > 1 && (
-          <a href={`/${currentPage - 1}/`} class="button pagination-button is-small" data-astro-prefetch="tap">Previous</a>
+          <a href={`/${currentPage - 1}/`} class="pagination-button prev-button" data-astro-prefetch="viewport">
+            <span class="material-icons">arrow_back</span>
+            முந்தைய
+          </a>
         )}
         {posts.length > 0 && currentPage < totalPages && (
-          <a href={`/${currentPage + 1}/`} class="button pagination-button is-small" data-astro-prefetch="tap">Next</a>
+          <a href={`/${currentPage + 1}/`} class="pagination-button next-button" data-astro-prefetch="viewport">
+            அடுத்தது
+            <span class="material-icons">arrow_forward</span>
+          </a>
         )}
       </nav>
     </div>
