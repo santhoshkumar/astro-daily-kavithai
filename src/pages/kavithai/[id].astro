@@ -26,6 +26,24 @@ const post = await fetchPostById(id);
 if (!post) {
   throw new Error(`Post with ID ${id} not found.`);
 }
+
+function stripHtml(html: string) {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const cleanContent = post.content ? stripHtml(post.content) : "";
+
+const titleText = cleanContent
+  ? `${cleanContent}`.slice(0, 50).trimEnd()
+  : `கவிதை ${id}`;
+
+const descriptionText = cleanContent
+  ? `${cleanContent}.`
+  : `Daily கவிதை ${id} - தமிழ் கவிதைகள் and Tamil Quotes.`;
+
 ---
 
 <!DOCTYPE html>
@@ -37,8 +55,8 @@ if (!post) {
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link href="/192.png" rel="icon" sizes="192x192" type="image/png">
   <link href="/180.png" rel="apple-touch-icon">
-  <title>கவிதை {id}</title>
-  <meta name="description" content={`Daily கவிதை ${id} - தமிழ் கவிதைகள் and Tamil Quotes.`}>
+  <title>{titleText}</title>
+  <meta name="description" content={descriptionText} />
   <link rel="canonical" href={`https://kavithai.searchquotes.quest/kavithai/${id}/`} />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
