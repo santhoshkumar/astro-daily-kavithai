@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "6.3.8"
+    "astro": "6.4.2"
   },
   "devDependencies": {
     "wrangler": "^4.95.0"
