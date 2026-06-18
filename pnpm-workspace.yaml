@@ -4,3 +4,4 @@ allowBuilds:
   workerd: true
 minimumReleaseAgeExclude:
   - vite@8.0.14
+  - astro
