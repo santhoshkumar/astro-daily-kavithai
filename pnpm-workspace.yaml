@@ -5,4 +5,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - vite
   - astro
+  - @astrojs
   - wrangler
